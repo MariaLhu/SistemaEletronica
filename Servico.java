@@ -8,11 +8,12 @@ import javax.swing.JOptionPane;
 
 public class Servico {
 
+    //Mais recente
+
     //atributos da Classe
     public int idServico;
     private static int idAutomatico = 1;
-    public int idEquipamento; //alterar para a composição da classe
-    public int idGarantia;  // alterar para a composição da classe
+    public int idGarantia; 
     private String itensAdicionais;
     private String motivo;
     private String primeiroDiagnostico;
@@ -23,12 +24,12 @@ public class Servico {
     private Date prazo;
     private double valor;
     private Cliente cliente;
+    private Equipamento equipamento;
 
 
     //Construtor da classe
-    public Servico(int idServico, int idEquipamento, int idGarantia, String itensAdicionais, String motivo, String primeiroDiagnostico, String servicoRealizado, String testesRealizados, Date dataRecebimento, Date dataEntrega, Date prazo, double valor, Cliente cliente) {
+    public Servico(int idServico, int idGarantia, String itensAdicionais, String motivo, String primeiroDiagnostico, String servicoRealizado, String testesRealizados, Date dataRecebimento, Date dataEntrega, Date prazo, double valor, Cliente cliente, Equipamento equipamento) {
         this.idServico = idAutomatico++;
-        this.idEquipamento = idEquipamento;
         this.idGarantia = idGarantia;
         this.itensAdicionais = itensAdicionais;
         this.motivo = motivo;
@@ -40,13 +41,14 @@ public class Servico {
         this.prazo = prazo;
         this.valor = valor;
         this.cliente = cliente;
+        this.equipamento = equipamento;
     }
 
     //Método para exibir todos os serviços cadastrados, para não ficar decorando o ID.
 
-    public Servico(int idServico, int idEquipamento, Cliente cliente) { 
+    public Servico(int idServico, Equipamento equipamento, Cliente cliente) { 
         this.idServico = idServico;
-        this.idEquipamento = idEquipamento;
+        this.equipamento = equipamento;
         this.cliente = cliente;
     }
 
@@ -57,14 +59,6 @@ public class Servico {
 
     public void setIdServico(int idServico) {
         this.idServico = idServico;
-    }
-
-    public int getIdEquipamento() {
-        return idEquipamento;
-    }
-
-    public void setIdEquipamento(int idEquipamento) {
-        this.idEquipamento = idEquipamento;
     }
 
     public int getIdGarantia() {
@@ -147,15 +141,21 @@ public class Servico {
         this.valor = valor;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public String getCliente() {
+        return cliente.getNome();
     }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+    public int getEquipamento() {
+        return equipamento.getIdEquipamento();
+    }
+    public void setEquipamento(Equipamento equipamento) {
+        this.equipamento = equipamento;
+    }
 
-    //Métodos de composição Cliente
+    //Métodos de composição
+        //Cliente
 
     public Servico trocarCliente(Servico servico, ArrayList<Cliente> listaClientes) {
 
@@ -167,7 +167,23 @@ public class Servico {
                 break;
             }
         }
-        Servico servicoEditado = new Servico(idServico, idEquipamento, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado);
+        Servico servicoEditado = new Servico(idServico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamento);
+        return servicoEditado;
+    }
+
+        //Equipamento
+        //editarequipamento
+    public Servico trocarEquipamento(Servico servico, ArrayList<Equipamento> listaEquipamentos) {
+
+        int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Qual o ID do equipamento corrento?"));
+        Equipamento equipamentoEncontrado = null;
+        for (Equipamento equipamento : listaEquipamentos) {
+            if (equipamento.getIdEquipamento == idEquipamento) {
+                equipamentoEncontrado = equipamento;
+                break;
+            }
+        }
+        Servico servicoEditado = new Servico(idServico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, cliente, equipamentoEncontrado);
         return servicoEditado;
     }
 
@@ -234,7 +250,7 @@ public class Servico {
     //Metodos da Classe
 
     //Cadastrar Serviços
-    public static void cadastrarServico(ArrayList<Cliente> listaClientes, ArrayList<Servico> listaServico, SimpleDateFormat sdf) {
+    public static void cadastrarServico(ArrayList<Cliente> listaClientes,ArrayList<Equipamento> listaEquipamentos, ArrayList<Servico> listaServico, SimpleDateFormat sdf) {
         // Solicita ao usuário que insira os detalhes do serviço
         Scanner ler = new Scanner(System.in);
         //chamada do método listar clientes
@@ -250,53 +266,57 @@ public class Servico {
         }
 
         if (clienteEncontrado != null) {
-            //Cadastro do ID do equipamento
-            int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("ID do Equipamento:"));
-            if (idEquipamento == -1) {
-                return;
-            }
-            //Cadastro do ID da Garantia
-            int idGarantia = Integer.parseInt(JOptionPane.showInputDialog("ID da Garantia:"));
-            if (idGarantia == -1) {
-                return;
-            }
-            //Cadastro itens adicionais
-            String itensAdicionais = JOptionPane.showInputDialog("Itens Adicionais:");
+                //Método cadastrar equipamento
+            int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do Equipamento:"));
+            Equipamento equipamentoEncontrado = null;
+                for (Equipamento equipamento : listaEquipamentos) {
+                    if (equipamento.getIdEquipamento() == idEquipamento) {
+                    equipamentoEncontrado = equipamento;
+                    break;
+                }
+        }
+                //Cadastro do ID da Garantia
+                int idGarantia = Integer.parseInt(JOptionPane.showInputDialog("ID da Garantia:"));
+                if (idGarantia == -1) {
+                    return;
+                }
+                //Cadastro itens adicionais
+                String itensAdicionais = JOptionPane.showInputDialog("Itens Adicionais:");
 
-            //Cadastro motivo
-            String motivo = JOptionPane.showInputDialog("Motivo:");
+                //Cadastro motivo
+                String motivo = JOptionPane.showInputDialog("Motivo:");
 
-            //Cadastro primeiro diagnóstico
-            String primeiroDiagnostico = JOptionPane.showInputDialog("Primeiro Diagnóstico:");
+                //Cadastro primeiro diagnóstico
+                String primeiroDiagnostico = JOptionPane.showInputDialog("Primeiro Diagnóstico:");
 
-            //Cadastro serviço realizado
-            String servicoRealizado = JOptionPane.showInputDialog("Serviço Realizado:");
+                //Cadastro serviço realizado
+                String servicoRealizado = JOptionPane.showInputDialog("Serviço Realizado:");
 
-            //Cadastro testes realizados
-            String testesRealizados = JOptionPane.showInputDialog("Testes Realizados:");
+                //Cadastro testes realizados
+                String testesRealizados = JOptionPane.showInputDialog("Testes Realizados:");
 
-            // Cadastro da data do recebimento
-            Date dataRecebimento = getDateInput("Data de Recebimento (dd/MM/yyyy):", sdf);
-            if (dataRecebimento == null) {
-                return;
-            }
-            // Cadastro da data de entrega
-            Date dataEntrega = getDateInput("Data de Entrega (dd/MM/yyyy):", sdf);
-            if (dataEntrega == null) {
-                return;
-            }
-            // Cadastro do prazo de entrega
-            Date prazo = getDateInput("Prazo (dd/MM/yyyy):", sdf);
-            if (prazo == null) {
-                return;
-            }
-            // Cadastro do valor
-            double valor = Double.parseDouble(JOptionPane.showInputDialog("Valor do Serviço:"));
-            if (valor == -1) {
-                return;
+                // Cadastro da data do recebimento
+                Date dataRecebimento = getDateInput("Data de Recebimento (dd/MM/yyyy):", sdf);
+                if (dataRecebimento == null) {
+                    return;
+                }
+                // Cadastro da data de entrega
+                Date dataEntrega = getDateInput("Data de Entrega (dd/MM/yyyy):", sdf);
+                if (dataEntrega == null) {
+                    return;
+                }
+                // Cadastro do prazo de entrega
+                Date prazo = getDateInput("Prazo (dd/MM/yyyy):", sdf);
+                if (prazo == null) {
+                    return;
+                }
+                // Cadastro do valor
+                double valor = Double.parseDouble(JOptionPane.showInputDialog("Valor do Serviço:"));
+                if (valor == -1) {
+                    return;
             }
             // Adicionar o novo serviço à lista de serviços
-            Servico servicoCadastrar = new Servico(idAutomatico, idEquipamento, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado);
+            Servico servicoCadastrar = new Servico(idAutomatico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamentoEncontrado);
             listaServico.add(servicoCadastrar);
             JOptionPane.showMessageDialog(null, "Serviço cadastrado com sucesso!");
         } else {
@@ -305,7 +325,7 @@ public class Servico {
     }
 
     //editar Serviços
-    public static void editarServico(ArrayList<Cliente> listaClientes, ArrayList<Servico> listaServico) {
+    public static void editarServico(ArrayList<Cliente> listaClientes, ArrayList<Equipamento> listaEquipamentos, ArrayList<Servico> listaServico) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         boolean encontrado = false;
@@ -357,12 +377,11 @@ public class Servico {
                             break;
 
                         case 1:    //Edição do ID do equipamento
-                            int novoIdEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Equipamento:"));
-                            if (novoIdEquipamento != -1) {
-                                servicoEditar.setIdEquipamento(novoIdEquipamento);
+                            int trocaEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Equipamento:"));
+                            if (trocaEquipamento != -1) {
+                                //Servico.trocarCliente(servicoEditar,listaClientes);
                             }
                             break;
-
                         case 2:    //Trocar Cliente
                             int trocaCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Cliente:"));
                             if (trocaCliente != -1) {
@@ -452,15 +471,14 @@ public class Servico {
     }
 
     //Listar Serviço
-    public static void listarServico(ArrayList<Servico> listaServicos) {
+    public static void listarServico(ArrayList<Servico> listaServicos ) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
         if (listaServicos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum serviço cadastrado.");
         } else {
             for (Servico servico : listaServicos) {
                 JOptionPane.showMessageDialog(null, "ID: " + servico.getIdServico() +
-                        "\nID do Equipamento: " + servico.getIdEquipamento() +
+                        "\nID do Equipamento: " + servico.getEquipamento() +
                         "\nCliente: " + servico.getCliente() +
                         "\nID da Garantia: " + servico.getIdGarantia() +
                         "\nItens Adicionais: " + servico.getItensAdicionais() +
@@ -480,8 +498,8 @@ public class Servico {
     public String toString() { //formatar, organizar o método Listar.
         return "Servico{" +
                 "idServico=" + idServico +
-                ", idEquipamento=" + idEquipamento +
-                ", cliente=" + cliente.getNome() +
+                ", idEquipamento=" + equipamento.getIdEquipamento +
+                ", cliente=" + cliente.getNome +
                 '}';
     }
 }
