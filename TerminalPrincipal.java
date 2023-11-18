@@ -1,5 +1,4 @@
 import javax.swing.JOptionPane;
-import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class TerminalPrincipal {
                     escolhaGarantiaOpcoes(listaClientes, listaServicos, listaGarantias);
                     break;
                 case 3: // Servico
-                    escolhaServicoOpcoes(listaClientes, listaServicos, sdf);
+                    escolhaServicoOpcoes(listaClientes, listaEquipamentos, listaServicos, sdf);
                     break;
                 case 4: // Cliente
                     escolhaClienteOpcoes(listaClientes);
@@ -193,7 +192,7 @@ public class TerminalPrincipal {
 
     }
 
-    private static void escolhaServicoOpcoes(ArrayList<Cliente> listaClientes, ArrayList<Servico> listaServicos, SimpleDateFormat sdf) {
+    private static void escolhaServicoOpcoes(ArrayList<Cliente> listaClientes,ArrayList<Equipamento> listaEquipamentos, ArrayList<Servico> listaServicos, SimpleDateFormat sdf) {
         boolean servicoLoop = true;
 
         while (servicoLoop) {
@@ -213,11 +212,11 @@ public class TerminalPrincipal {
 
             switch (servicoOpcao) {
                 case 0:
-                    Servico.cadastrarServico(listaClientes, listaServicos, sdf);
+                    Servico.cadastrarServico(listaClientes, listaEquipamentos, listaServicos, sdf);
                     break;
 
                 case 1:
-                    Servico.editarServico(listaClientes, listaServicos);
+                    Servico.editarServico(listaClientes, listaEquipamentos, listaServicos);
                     break;
 
                 case 2:

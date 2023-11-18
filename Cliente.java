@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 public class Cliente {
@@ -101,7 +99,7 @@ public class Cliente {
 
     //Solicitar que o usuario insira os detalhes dos clientes:
 
-    public static void cadastrarCliente(ArrayList<Cliente> listaClientes) throws HeadlessException {
+    public static void cadastrarCliente(ArrayList<Cliente> listaClientes){
     
        
         //Cadastro de Tipo
@@ -142,10 +140,10 @@ public class Cliente {
                 return;
             }
             for (Cliente Cliente : listaClientes) {
-            if (Cliente.getIdCliente() == idEditar) {
-                clienteEditar = Cliente;
-                encontrado = true;
-                break;
+                if (Cliente.getIdCliente() == idEditar) {
+                    clienteEditar = Cliente;
+                    encontrado = true;
+                    break;
             }
             }if (encontrado) {
                                
@@ -164,39 +162,32 @@ public class Cliente {
 
                 switch (opcao) {
 
-                case 0:// Edição do ID do cliente
-                    int novoIdCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Cliente:"));
-                    if (novoIdCliente != -1) {
-                        clienteEditar.setIdCliente(novoIdCliente);
-                    }
-                    break;
-
-                case 1:    //Edição do Tipo
+                case 0:    //Edição do Tipo
                     String novoTipo = JOptionPane.showInputDialog("Edite o Tipo:");
                     clienteEditar.setTipo(novoTipo);
                     break;
 
-                case 2:    //Edição do Nome
+                case 1:    //Edição do Nome
                     String novoNome = JOptionPane.showInputDialog("Edite o Nome:");
                     clienteEditar.setNome(novoNome);
                     break;
                 
-                case 3:    //Edição do Documento
+                case 2:    //Edição do Documento
                     String novoDocumento = JOptionPane.showInputDialog("Edite o Documento:");
                     clienteEditar.setDocumento(novoDocumento);
                     break;
 
-                case 4:    //Edição do Endereço
+                case 3:    //Edição do Endereço
                     String novoEndereco = JOptionPane.showInputDialog("Edite o Endereço:");
                     clienteEditar.setEndereco(novoEndereco);
                     break;
 
-                case 5:    //Edição do Celular
+                case 4:    //Edição do Celular
                     String novoCelular = JOptionPane.showInputDialog("Edite o Celular:");
                     clienteEditar.setCelular(novoCelular);
                     break;
                 
-                case 6:
+                case 5:
                     JOptionPane.showMessageDialog(null, "Edição concluída.");
                     break;                
 
@@ -215,9 +206,13 @@ public class Cliente {
         for (Cliente Cliente : listaClientes) {
             if (Cliente.getIdCliente() == idCliente) {
                 listaClientes.remove(Cliente);
+                JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
+
                 return true; // Retorna true se o cliente foi excluído.
             }
         }
+        JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+
         return false; // Retorna false se o cliente não foi encontrado.
     }
 

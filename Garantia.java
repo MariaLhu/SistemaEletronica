@@ -90,15 +90,29 @@ public class Garantia {
             return;
         }
 
-        //Escolha de Serviço:
+      /*  //Escolha de Serviço:
         ArrayList<Servico> optionsServicos =  new ArrayList<Servico>();
         for (Servico servicoItem : listaServicos) {
             optionsServicos.add(new Servico(servicoItem.getIdServico(), servicoItem.getIdEquipamento(), servicoItem.getCliente()));
         }
         Object[] options = optionsServicos.toArray();
-        Servico servicoEscolhido = (Servico) JOptionPane.showInputDialog(null, "Escolha um serviço", "Escolha um serviço", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+         */
 
-        Garantia garantiaCadastrar = new Garantia(idGarantia, dataInicial, dataFinal, listaServicos.stream().filter(servico -> servicoEscolhido.getIdServico() == servico.getIdServico()).findFirst().orElse(null));
+         Servico servicoEncontrado = null;
+         int idServico = Integer.parseInt(JOptionPane.showInputDialog("ID do Servico:"));
+
+         for (Servico servico : listaServicos) {
+             if (servico.getIdServico() == idServico) {
+                 servicoEncontrado = servico;
+                 break;
+             }
+         }
+
+         
+
+
+        
+        Garantia garantiaCadastrar = new Garantia(idGarantia, dataInicial, dataFinal, servicoEncontrado);
 
         // Adicione a nova garantia a lista.
         listaGarantias.add(garantiaCadastrar);
