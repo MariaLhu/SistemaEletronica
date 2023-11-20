@@ -239,6 +239,24 @@ public class Servico {
         return value;
     }
 
+    //Exceções para String
+    public static String getStringInput(String prompt) {
+        String input = null;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return null;
+                }
+                validInput = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro de entrada. Por favor, tente novamente.");
+            }
+        }
+        return input;
+    }
+
     //Metodos da Classe
 
     //Cadastrar Serviços
@@ -246,7 +264,10 @@ public class Servico {
         // Solicita ao usuário que insira os detalhes do serviço
         Scanner ler = new Scanner(System.in);
         //chamada do método listar clientes
-        int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Selecione o cliente desejado"));
+        int idCliente = getIntegerInput("Selecione o cliente desejado");
+        if (idCliente == -1) {
+            return;
+        }
 
         Cliente clienteEncontrado = null;
 
@@ -259,7 +280,10 @@ public class Servico {
 
         if (clienteEncontrado != null) {
                 //Método cadastrar equipamento
-            int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do Equipamento:"));
+            int idEquipamento = getIntegerInput("Digite o ID do Equipamento:");
+            if (idEquipamento == -1) {
+                return;
+            }
             Equipamento equipamentoEncontrado = null;
                 for (Equipamento equipamento : listaEquipamentos) {
                     if (equipamento.getIdEquipamento() == idEquipamento) {
@@ -273,19 +297,34 @@ public class Servico {
                     return;
                 }*/
                 //Cadastro itens adicionais
-                String itensAdicionais = JOptionPane.showInputDialog("Itens Adicionais:");
+                String itensAdicionais = getStringInput("Itens Adicionais:");
+                if (itensAdicionais == null) {
+                    return;
+                }
 
                 //Cadastro motivo
-                String motivo = JOptionPane.showInputDialog("Motivo:");
+                String motivo = getStringInput("Motivo:");
+                if (motivo == null) {
+                    return;
+                }
 
                 //Cadastro primeiro diagnóstico
-                String primeiroDiagnostico = JOptionPane.showInputDialog("Primeiro Diagnóstico:");
+                String primeiroDiagnostico = getStringInput("Primeiro Diagnóstico:");
+                if (primeiroDiagnostico == null) {
+                    return;
+                }
 
                 //Cadastro serviço realizado
-                String servicoRealizado = JOptionPane.showInputDialog("Serviço Realizado:");
+                String servicoRealizado = getStringInput("Serviço Realizado:");
+                if (servicoRealizado == null) {
+                    return;
+                }
 
                 //Cadastro testes realizados
-                String testesRealizados = JOptionPane.showInputDialog("Testes Realizados:");
+                String testesRealizados = getStringInput("Testes Realizados:");
+                if (testesRealizados == null) {
+                    return;
+                }
 
                 // Cadastro da data do recebimento
                 Date dataRecebimento = getDateInput("Data de Recebimento (dd/MM/yyyy):", sdf);

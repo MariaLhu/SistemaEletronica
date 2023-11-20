@@ -69,10 +69,28 @@ public class Garantia {
         return value;
     }
 
+    public static int getIntegerInput(String prompt) {
+        int value = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                String input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return value;
+                }
+                value = Integer.parseInt(input);
+                validInput = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número inteiro válido.");
+            }
+        }
+        return value;
+    }
+
     public static void cadastrarGarantia(ArrayList<Garantia> listaGarantias, ArrayList<Servico> listaServicos) {
 
         //ID da garantia:
-        int idGarantia = Integer.parseInt(JOptionPane.showInputDialog("ID da Garantia:"));
+        int idGarantia = getIntegerInput("ID da Garantia:");
         if (idGarantia == -1) {
             return;
         }
@@ -99,7 +117,10 @@ public class Garantia {
          */
 
          Servico servicoEncontrado = null;
-         int idServico = Integer.parseInt(JOptionPane.showInputDialog("ID do Servico:"));
+         int idServico = getIntegerInput("ID do Servico:");
+         if (idServico == -1) {
+            return;
+         }
 
          for (Servico servico : listaServicos) {
              if (servico.getIdServico() == idServico) {
@@ -109,8 +130,6 @@ public class Garantia {
          }
 
          
-
-
         
         Garantia garantiaCadastrar = new Garantia(idGarantia, dataInicial, dataFinal, servicoEncontrado);
 
@@ -131,7 +150,7 @@ public class Garantia {
             JOptionPane.showMessageDialog(null, "Nenhuma garantia cadastrada.");
         } else {
             listarGarantia(listaGarantias);
-            int idEditar = Integer.parseInt(JOptionPane.showInputDialog("Qual o ID da garantia que deseja editar?"));
+            int idEditar = getIntegerInput("Qual o ID da garantia que deseja editar?");
             if (idEditar == -1) {
                 return;
             }
@@ -164,7 +183,7 @@ public class Garantia {
                     switch (opcaoEditar) {
 
                         case 0:// Edição do ID da garantia
-                            int novoIdGarantia = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID da Garantia:"));
+                            int novoIdGarantia = getIntegerInput("Digite o novo ID da Garantia:");
                             if (novoIdGarantia != -1) {
                                 garantiaEditar.setIdGarantia(novoIdGarantia);
                             }

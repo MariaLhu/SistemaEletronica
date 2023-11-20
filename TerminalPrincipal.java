@@ -172,7 +172,10 @@ public class TerminalPrincipal {
                     break;
 
                 case 2:
-                    int idExcluir = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do Servico que deseja:"));
+                    int idExcluir = Garantia.getIntegerInput("Digite o id do Servico que deseja:");
+                    if (idExcluir == -1) {
+                        break;
+                    }
                     Garantia.excluirGarantia(idExcluir, listaGarantias);
                     break;
 
@@ -220,7 +223,10 @@ public class TerminalPrincipal {
                     break;
 
                 case 2:
-                    int idExcluir = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do Servico que deseja:"));
+                    int idExcluir = Servico.getIntegerInput("Digite o id do Servico que deseja:");
+                    if (idExcluir == -1) {
+                        break;
+                    }
                     Servico.excluirServico(idExcluir, listaServicos);
 
                     break;
@@ -263,7 +269,7 @@ public class TerminalPrincipal {
                 case 1:
                     int idCliente = Cliente.getIntegerInput("Digite o id do Cliente que deseja:");
                     if (idCliente == -1) {
-                        return;
+                        break;
                     }
                     Cliente.editarCliente(listaClientes);
                     break;
@@ -271,7 +277,7 @@ public class TerminalPrincipal {
                 case 2:
                     int idExcluir = Cliente.getIntegerInput("Digite o id do Cliente que deseja:");
                     if (idExcluir == -1) {
-                        return;
+                        break;
                     }
                     Cliente.excluirCliente(idExcluir, listaClientes);
                     break;
