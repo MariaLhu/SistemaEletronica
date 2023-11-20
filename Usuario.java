@@ -2,17 +2,18 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Usuario {
+//Atributos da Classe Usuário.    
     private static int idAutomatico = 1;
     private int idUsuario;
     private String login;
     private String senha;
-
+//O contrutor da Classe, que inicializa uma usuário com os parâmetros fornecidos. Uma nova instância de Usuário.
     public Usuario(String login, String senha) {
         this.idUsuario = idAutomatico++;
         this.login = login;
         this.senha = senha;
     }
-
+//Encapsulamento, utilizando Getters e Setters para acessar e modificar os atributos que estão privados.   
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -36,7 +37,7 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+//Método para realizar o login comparando as credenciais inseridas (login e senha) com os usuários na lista, para verificar se são válidas.
     public static boolean realizarLogin(ArrayList<Usuario> listaUsuarios) {
 
         String login = JOptionPane.showInputDialog("Login:");
@@ -49,11 +50,14 @@ public class Usuario {
         }
         return false; // Retorna false se o usuário não foi encontrado.
     }
-
+//Método para cadastrar um novo usuário com validação de entrada.
+//Solicita login e senha ao usuário
+// Tenta converter a string para um número
+// Cria um novo objeto Usuario e o adiciona à lista de usuários
     public static void cadastrarUsuario(ArrayList<Usuario> listaUsuarios) {
        
 
-        // Tenta converter a string para um número
+        
         try {
 
             String login = JOptionPane.showInputDialog("Login:");
@@ -83,7 +87,7 @@ public class Usuario {
         }
 
     }
-
+//Método para editar um usuário existente.
     public static void editarUsuario(String[] args, ArrayList<Usuario> listaUsuarios) {
         boolean encontrado = false;
         Usuario usuarioEditar = null;
@@ -164,7 +168,7 @@ public class Usuario {
             }
         }
     }
-
+//Método para excluir um usuário da lista, por meio o ID do usuário.
     public static boolean excluirUsuario(int idUsuario, ArrayList<Usuario> listaUsuarios) {
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getIdUsuario() == idUsuario) {
@@ -174,7 +178,7 @@ public class Usuario {
         }
         return false; // Retorna false se o usuário não foi encontrado.
     }
-
+//Método para exibir informações de todos os usuários na lista.
     public static void listarUsuarios(ArrayList<Usuario> listaUsuarios) {
 
         if (listaUsuarios.isEmpty()) {
