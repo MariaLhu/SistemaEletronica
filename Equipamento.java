@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,12 +67,114 @@ public void setEquipamentoCompleto(boolean equipamentoCompleto) {
 public String getCliente() {
     return cliente.getNome();
 }
+
+// Exceções para entrada de dados
+
+    public static String getStringInput(String prompt) {
+        String input = null;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return null;
+                }
+                validInput = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro de entrada. Por favor, tente novamente.");
+            }
+        }
+        return input;
+    }
+
+    public static int getIntegerInput(String prompt) {
+        int value = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                String input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return value;
+                }
+                value = Integer.parseInt(input);
+                validInput = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número inteiro válido.");
+            }
+        }
+        return value;
+    }
+
+    public static float getFloatInput(String prompt) {
+        float value = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                String input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return value;
+                }
+                value = Float.parseFloat(input);
+                validInput = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um valor numérico válido.");
+            }
+        }
+        return value;
+    }
+
+    public static Date getDateInput(String prompt, SimpleDateFormat sdf) {
+        Date value = null;
+        boolean validInput = false;
+        while (!validInput) {
+            String input = JOptionPane.showInputDialog(prompt);
+            if (input == null) {
+                return null;
+            }
+            try {
+                value = sdf.parse(input);
+                validInput = true;
+            } catch (ParseException e) {
+                JOptionPane.showMessageDialog(null,
+                        "Formato de data inválido. Certifique-se de usar o padrão dd/mm/aaaa.");
+            }
+        }
+        return value;
+    }
+
+    public static boolean getBooleanInput(String prompt) {
+        boolean value = false;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                String input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return value;
+                }
+                // Converte a entrada para minúsculas e remove espaços em branco ao redor
+                input = input.trim().toLowerCase();
+
+                // Verifica se a entrada é "true" ou "false"
+                if (input.equals("true") || input.equals("false")) {
+                    value = Boolean.parseBoolean(input);
+                    validInput = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira 'true' ou 'false'.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro de entrada. Por favor, tente novamente.");
+            }
+        }
+        return value;
+    }
     
-public static void cadastrarEquipamento(ArrayList<Cliente> listaClientes, ArrayList<Equipamento> listaEquipamentos){
+    public static void cadastrarEquipamento(ArrayList<Cliente> listaClientes, ArrayList<Equipamento> listaEquipamentos){
         Scanner ler = new Scanner(System.in);
         //chamada do método listar clientes
-        int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Selecione o cliente desejado"));
-    
+        int idCliente = getIntegerInput("Selecione o cliente desejado");
+        if (idCliente == -1) {
+            return;
+        }
         Cliente clienteEncontrado = null;
     
         for (Cliente cliente : listaClientes) {
@@ -82,10 +185,10 @@ public static void cadastrarEquipamento(ArrayList<Cliente> listaClientes, ArrayL
         }
     
         if (clienteEncontrado != null) {
-            String marca = JOptionPane.showInputDialog("Digite a marca do equipamento");
-            String modelo = JOptionPane.showInputDialog("Digite o modelo de equipamento"); 
-            float capacidade = Float.parseFloat(JOptionPane.showInputDialog("Digite a capacidade do equipamento"));
-            boolean equipamentoCompleto = Boolean.parseBoolean(JOptionPane.showInputDialog("O equipamento está completo? (true/false)"));
+            String marca = getStringInput("Digite a marca do equipamento");
+            String modelo = getStringInput("Digite o modelo de equipamento"); 
+            float capacidade = getFloatInput("Digite a capacidade do equipamento");
+            boolean equipamentoCompleto = getBooleanInput("O equipamento está completo? (true/false)");
         
             Equipamento novoEquipamento = new Equipamento(marca, modelo, capacidade, equipamentoCompleto, clienteEncontrado);
             listaEquipamentos.add(novoEquipamento);
@@ -96,7 +199,8 @@ public static void cadastrarEquipamento(ArrayList<Cliente> listaClientes, ArrayL
             JOptionPane.showMessageDialog(null, "Cliente não encontrado.");
         }
     }
-public static void editarEquipamento(ArrayList<Equipamento> listaEquipamentos) {
+
+    public static void editarEquipamento(ArrayList<Equipamento> listaEquipamentos) {
         Scanner ler = new Scanner(System.in);
         boolean encontrado = false;
         Equipamento equipamentoEditar = null;
@@ -107,7 +211,7 @@ public static void editarEquipamento(ArrayList<Equipamento> listaEquipamentos) {
             System.out.println("Nenhum equipamento cadastrado.");
         } else {
             listarEquipamentos(listaEquipamentos);
-            int idEditar = Integer.parseInt(JOptionPane.showInputDialog("Digite o ID do equipamento que deseja editar"));
+            int idEditar = getIntegerInput("Digite o ID do equipamento que deseja editar");
 
             for (Equipamento equipamento : listaEquipamentos) {
                 if (equipamento.getIdEquipamento() == idEditar) {
@@ -119,13 +223,13 @@ public static void editarEquipamento(ArrayList<Equipamento> listaEquipamentos) {
 
             if (encontrado) {   
             
-                    String novaMarca = JOptionPane.showInputDialog("Digite a nova marca do equipamento");
+                    String novaMarca = getStringInput("Digite a nova marca do equipamento");
                     equipamentoEditar.setMarca(novaMarca);
-                    String novoModelo = JOptionPane.showInputDialog("Digite o novo modelo de equipamento"); 
+                    String novoModelo = getStringInput("Digite o novo modelo de equipamento"); 
                     equipamentoEditar.setModelo(novoModelo);
-                    float novaCapacidade = Float.parseFloat(JOptionPane.showInputDialog("Digite a nova capacidade do equipamento"));
+                    float novaCapacidade = getFloatInput("Digite a nova capacidade do equipamento");
                     equipamentoEditar.setCapacidade(novaCapacidade);
-                    boolean novoEquipamentoCompleto = Boolean.parseBoolean(JOptionPane.showInputDialog("O equipamento está completo? (true/false)"));
+                    boolean novoEquipamentoCompleto = getBooleanInput("O equipamento está completo? (true/false)");
                     equipamentoEditar.setEquipamentoCompleto(novoEquipamentoCompleto);
                     JOptionPane.showMessageDialog(null, "Equipamento editado!");
             } else {

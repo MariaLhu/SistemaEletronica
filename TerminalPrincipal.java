@@ -132,7 +132,7 @@ public class TerminalPrincipal {
                     break;
 
                 case 3:
-                    int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do Equipamento que deseja editar:"));
+                    int idEquipamento = Equipamento.getIntegerInput("Digite o id do Equipamento que deseja editar:");
 
                     Equipamento.excluirEquipamento(idEquipamento, listaEquipamentos);
                     break;
@@ -261,14 +261,18 @@ public class TerminalPrincipal {
                     break;
 
                 case 1:
-                    int idCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do Cliente que deseja:"));
-
+                    int idCliente = Cliente.getIntegerInput("Digite o id do Cliente que deseja:");
+                    if (idCliente == -1) {
+                        return;
+                    }
                     Cliente.editarCliente(listaClientes);
                     break;
 
                 case 2:
-                    int idExcluir = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do Cliente que deseja:"));
-
+                    int idExcluir = Cliente.getIntegerInput("Digite o id do Cliente que deseja:");
+                    if (idExcluir == -1) {
+                        return;
+                    }
                     Cliente.excluirCliente(idExcluir, listaClientes);
                     break;
 

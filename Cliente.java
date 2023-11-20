@@ -97,26 +97,53 @@ public class Cliente {
         return value;
     }
 
+    public static String getStringInput(String prompt) {
+        String input = null;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                input = JOptionPane.showInputDialog(prompt);
+                if (input == null) {
+                    return null;
+                }
+                validInput = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro de entrada. Por favor, tente novamente.");
+            }
+        }
+        return input;
+    }
+
     //Solicitar que o usuario insira os detalhes dos clientes:
 
     public static void cadastrarCliente(ArrayList<Cliente> listaClientes){
     
        
         //Cadastro de Tipo
-        String tipo = JOptionPane.showInputDialog("Tipo (PF ou PJ):");
-
+        String tipo = getStringInput("Tipo (PF ou PJ):");
+        if (tipo == null) {
+            return;
+        }
         //Cadastro de Nome do Cliente
-        String nome = JOptionPane.showInputDialog("Nome:");
-
+        String nome = getStringInput("Nome:");
+        if (nome == null) {
+            return;
+        }
         //Cadastro de Documento (CPF ou CNPJ):
-        String documento = JOptionPane.showInputDialog("Documento (CPF ou CNPJ)");
-
+        String documento = getStringInput("Documento (CPF ou CNPJ)");
+        if (documento == null) {
+            return;
+        }
         //Cadastro de endereco
-        String endereco = JOptionPane.showInputDialog("Endereço (Rua, Nº, Bairro, CEP):");
-
+        String endereco = getStringInput("Endereço (Rua, Nº, Bairro, CEP):");
+        if (endereco == null) {
+            return;
+        }
         //Cadastro de celular
-        String celular = JOptionPane.showInputDialog("Celular (Ex: 69 9999 9999):");
-
+        String celular = getStringInput("Celular (Ex: 69 9999 9999):");
+        if (celular == null) {
+            return;
+        }
 
         Cliente clienteCadastrar = new Cliente (tipo, nome, documento, endereco, celular);
         
@@ -135,7 +162,7 @@ public class Cliente {
         JOptionPane.showMessageDialog(null, "Nenhum cliente cadastrado.");
         } else {         
             listarCliente(listaClientes);
-            int idEditar = Integer.parseInt(JOptionPane.showInputDialog("Qual o ID do cliente que deseja editar?"));
+            int idEditar = getIntegerInput("Qual o ID do cliente que deseja editar?");
             if (idEditar == -1){
                 return;
             }
@@ -163,27 +190,42 @@ public class Cliente {
                 switch (opcao) {
 
                 case 0:    //Edição do Tipo
-                    String novoTipo = JOptionPane.showInputDialog("Edite o Tipo:");
+                    String novoTipo = getStringInput("Edite o Tipo:");
+                    if (novoTipo == null) {
+                        return;
+                    }
                     clienteEditar.setTipo(novoTipo);
                     break;
 
                 case 1:    //Edição do Nome
-                    String novoNome = JOptionPane.showInputDialog("Edite o Nome:");
+                    String novoNome = getStringInput("Edite o Nome:");
+                    if (novoNome == null) {
+                        return;
+                    }
                     clienteEditar.setNome(novoNome);
                     break;
                 
                 case 2:    //Edição do Documento
-                    String novoDocumento = JOptionPane.showInputDialog("Edite o Documento:");
+                    String novoDocumento = getStringInput("Edite o Documento:");
+                   if (novoDocumento == null) {
+                        return;
+                    }
                     clienteEditar.setDocumento(novoDocumento);
                     break;
 
                 case 3:    //Edição do Endereço
-                    String novoEndereco = JOptionPane.showInputDialog("Edite o Endereço:");
+                    String novoEndereco = getStringInput("Edite o Endereço:");
+                    if (novoEndereco == null) {
+                        return;
+                    }
                     clienteEditar.setEndereco(novoEndereco);
                     break;
 
                 case 4:    //Edição do Celular
-                    String novoCelular = JOptionPane.showInputDialog("Edite o Celular:");
+                    String novoCelular = getStringInput("Edite o Celular:");
+                    if (novoCelular == null) {
+                        return;
+                    }
                     clienteEditar.setCelular(novoCelular);
                     break;
                 
@@ -203,7 +245,7 @@ public class Cliente {
 
     //Excluir Cliente
     public static boolean excluirCliente(int idCliente, ArrayList<Cliente> listaClientes) {
-        for (Cliente Cliente : listaClientes) {
+    for (Cliente Cliente : listaClientes) {
             if (Cliente.getIdCliente() == idCliente) {
                 listaClientes.remove(Cliente);
                 JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
@@ -215,7 +257,6 @@ public class Cliente {
 
         return false; // Retorna false se o cliente não foi encontrado.
     }
-
 
     //Listar Clientes
     public static void listarCliente(ArrayList<Cliente> listaClientes) {
