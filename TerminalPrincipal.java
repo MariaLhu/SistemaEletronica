@@ -17,8 +17,9 @@ public class TerminalPrincipal {
         ArrayList<Servico> listaServicos = new ArrayList<Servico>();
 
         boolean loop = true;
-
-        while (loop) {
+        
+        while (loop) {           
+            
             int opcao;
 
             String[] opcoes = {"Recibo", "Equipamento", "Garantia", "Servico", "Cliente", "Sair"};
@@ -150,8 +151,7 @@ public class TerminalPrincipal {
         while (garantiaLoop) {
             int garantiaOpcao;
 
-            String[] garantiaOpcoes = {"Cadastrar Servico", "Editar Servico", "Excluir Servico",
-                    "Listar Servico", "Voltar"};
+            String[] garantiaOpcoes = {"Cadastrar Garantia", "Editar Garantia", "Excluir Garantia", "Listar Garantia", "Voltar"};
             garantiaOpcao = JOptionPane.showOptionDialog(
                     null,
                     "Escolha uma opção de Recibo:",

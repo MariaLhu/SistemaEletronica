@@ -185,6 +185,7 @@ public String getCliente() {
         }
     
         if (clienteEncontrado != null) {
+            
             String marca = getStringInput("Digite a marca do equipamento");
             String modelo = getStringInput("Digite o modelo de equipamento"); 
             float capacidade = getFloatInput("Digite a capacidade do equipamento");
@@ -221,22 +222,69 @@ public String getCliente() {
                 }
             }
 
-            if (encontrado) {   
-            
-                    String novaMarca = getStringInput("Digite a nova marca do equipamento");
+            if (encontrado) {  
+                
+                
+                String[] opcoes = {"Editar Marca", "Editar Modelo", "Editar Capacidade", "Equipamento completo?", "Sair"};
+                
+                int opcao = JOptionPane.showOptionDialog(
+                    null,
+                    "Escolha uma opção:",
+                    "Menu",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    opcoes,
+                    opcoes[0]
+                );
+
+                switch (opcao) {
+
+                case 0:    //Edição da Marca
+                    String novaMarca = getStringInput("Edite a Marca:");
+                    if (novaMarca == null) {
+                        return;
+                    }
                     equipamentoEditar.setMarca(novaMarca);
-                    String novoModelo = getStringInput("Digite o novo modelo de equipamento"); 
+                    break;
+
+                case 1:    //Edição do modelo
+                    String novoModelo = getStringInput("Edite o Modelo:");
+                    if (novoModelo == null) {
+                        return;
+                    }
                     equipamentoEditar.setModelo(novoModelo);
-                    float novaCapacidade = getFloatInput("Digite a nova capacidade do equipamento");
+                    break;
+                
+                case 2:    //Edição da Capacidade
+                    Float novaCapacidade = getFloatInput("Edite a capacidade:");
+                   if (novaCapacidade == null) {
+                        return;
+                    }
                     equipamentoEditar.setCapacidade(novaCapacidade);
-                    boolean novoEquipamentoCompleto = getBooleanInput("O equipamento está completo? (true/false)");
+                    break;
+
+                case 3:    //Edição do Equipamento Completo
+                    boolean novoEquipamentoCompleto = getBooleanInput("Edite o status do equipamento:");
+                    if (novoEquipamentoCompleto == false) {
+                        return;
+                    }
                     equipamentoEditar.setEquipamentoCompleto(novoEquipamentoCompleto);
-                    JOptionPane.showMessageDialog(null, "Equipamento editado!");
-            } else {
-                    JOptionPane.showMessageDialog(null, "Equipamento não existe!");
-            } }           
-    
+                    break;              
+                
+                case 5:
+                    JOptionPane.showMessageDialog(null, "Edição concluída.");
+                    break;                
+
+                }
+               
+             JOptionPane.showMessageDialog(null, "Equipamento editado!");
+                            
+        }else {
+                JOptionPane.showMessageDialog(null, "CLiente não existe.");
+        }
     }
+}
 
     public static void listarEquipamentos(ArrayList<Equipamento> listaEquipamentos) {
         if (listaEquipamentos.isEmpty()) {

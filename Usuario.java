@@ -7,7 +7,7 @@ public class Usuario {
     private String login;
     private String senha;
 
-    public Usuario(int IdUsuario, String login, String senha) {
+    public Usuario(String login, String senha) {
         this.idUsuario = idAutomatico++;
         this.login = login;
         this.senha = senha;
@@ -51,17 +51,10 @@ public class Usuario {
     }
 
     public static void cadastrarUsuario(ArrayList<Usuario> listaUsuarios) {
-
-        String idUsuarioStr = JOptionPane.showInputDialog("ID do Usuário:");
-
-        // Verifica se o usuário cancelou a entrada
-        if (idUsuarioStr == null) {
-            return;
-        }
+       
 
         // Tenta converter a string para um número
         try {
-            int idUsuario = Integer.parseInt(idUsuarioStr);
 
             String login = JOptionPane.showInputDialog("Login:");
 
@@ -79,7 +72,7 @@ public class Usuario {
                 return;
             }
 
-            Usuario usuarioCadastrar = new Usuario(idUsuario, login, senha);
+            Usuario usuarioCadastrar = new Usuario(login, senha);
 
             // Adicione o novo usuário à lista.
             listaUsuarios.add(usuarioCadastrar);

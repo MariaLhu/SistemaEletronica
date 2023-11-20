@@ -28,9 +28,8 @@ public class Servico {
 
 
     //Construtor da classe
-    public Servico(int idServico, int idGarantia, String itensAdicionais, String motivo, String primeiroDiagnostico, String servicoRealizado, String testesRealizados, Date dataRecebimento, Date dataEntrega, Date prazo, double valor, Cliente cliente, Equipamento equipamento) {
+    public Servico(int idServico,String itensAdicionais, String motivo, String primeiroDiagnostico, String servicoRealizado, String testesRealizados, Date dataRecebimento, Date dataEntrega, Date prazo, double valor, Cliente cliente, Equipamento equipamento) {
         this.idServico = idAutomatico++;
-        this.idGarantia = idGarantia;
         this.itensAdicionais = itensAdicionais;
         this.motivo = motivo;
         this.primeiroDiagnostico = primeiroDiagnostico;
@@ -60,14 +59,7 @@ public class Servico {
     public void setIdServico(int idServico) {
         this.idServico = idServico;
     }
-
-    public int getIdGarantia() {
-        return idGarantia;
-    }
-
-    public void setIdGarantia(int idGarantia) {
-        this.idGarantia = idGarantia;
-    }
+    
 
     public String getItensAdicionais() {
         return itensAdicionais;
@@ -167,7 +159,7 @@ public class Servico {
                 break;
             }
         }
-        Servico servicoEditado = new Servico(idServico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamento);
+        Servico servicoEditado = new Servico(idServico,itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamento);
         return servicoEditado;
     }
 
@@ -178,12 +170,12 @@ public class Servico {
         int idEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Qual o ID do equipamento corrento?"));
         Equipamento equipamentoEncontrado = null;
         for (Equipamento equipamento : listaEquipamentos) {
-            if (equipamento.getIdEquipamento == idEquipamento) {
+            if (servico.getEquipamento() == idEquipamento) {
                 equipamentoEncontrado = equipamento;
                 break;
             }
         }
-        Servico servicoEditado = new Servico(idServico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, cliente, equipamentoEncontrado);
+        Servico servicoEditado = new Servico(idServico,itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, cliente, equipamentoEncontrado);
         return servicoEditado;
     }
 
@@ -275,11 +267,11 @@ public class Servico {
                     break;
                 }
         }
-                //Cadastro do ID da Garantia
+             /*    //Cadastro do ID da Garantia
                 int idGarantia = Integer.parseInt(JOptionPane.showInputDialog("ID da Garantia:"));
                 if (idGarantia == -1) {
                     return;
-                }
+                }*/
                 //Cadastro itens adicionais
                 String itensAdicionais = JOptionPane.showInputDialog("Itens Adicionais:");
 
@@ -316,7 +308,7 @@ public class Servico {
                     return;
             }
             // Adicionar o novo serviço à lista de serviços
-            Servico servicoCadastrar = new Servico(idAutomatico, idGarantia, itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamentoEncontrado);
+            Servico servicoCadastrar = new Servico(idAutomatico,itensAdicionais, motivo, primeiroDiagnostico, servicoRealizado, testesRealizados, dataRecebimento, dataEntrega, prazo, valor, clienteEncontrado, equipamentoEncontrado);
             listaServico.add(servicoCadastrar);
             JOptionPane.showMessageDialog(null, "Serviço cadastrado com sucesso!");
         } else {
@@ -389,46 +381,46 @@ public class Servico {
                             }
                             break;
 
-                        case 3: //Edição do ID da Garantia
+                       /* case 3: //Edição do ID da Garantia
                             int novoIdGarantia = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID da Garantia:"));
                             if (novoIdGarantia != -1) {
                                 servicoEditar.setIdGarantia(novoIdGarantia);
                             }
-                            break;
+                            break;*/
 
-                        case 4: //Edição itens adicionais
+                        case 3: //Edição itens adicionais
                             String novoItensAdicionais = JOptionPane.showInputDialog("Edite os itens adicionais:");
                             servicoEditar.setItensAdicionais(novoItensAdicionais);
                             break;
 
-                        case 5://Edição motivo
+                        case 4://Edição motivo
                             String novoMotivo = JOptionPane.showInputDialog("Altere os motivos:");
                             servicoEditar.setMotivo(novoMotivo);
                             break;
 
-                        case 6://Edição primeiro diagnóstivo
+                        case 5://Edição primeiro diagnóstivo
                             String novoDiagnostico = JOptionPane.showInputDialog("Altere o primeiro diagnóstico:");
                             servicoEditar.setPrimeiroDiagnostico(novoDiagnostico);
                             break;
 
-                        case 7://Edição serviço realizado
+                        case 6://Edição serviço realizado
                             String novoServicoRealizado = JOptionPane.showInputDialog("Altere os serviços realizados:");
                             servicoEditar.setServicoRealizado(novoServicoRealizado);
                             break;
 
-                        case 8://Edição testes realizados
+                        case 7://Edição testes realizados
                             String novoTesteRealizado = JOptionPane.showInputDialog("Altere os testes realizados:");
                             servicoEditar.setTestesRealizados(novoTesteRealizado);
                             break;
 
-                        case 9:// Edição do valor
+                        case 8:// Edição do valor
                             double novoValorServico = Double.parseDouble(JOptionPane.showInputDialog("Novo valor do serviço:"));
                             if (novoValorServico != -1) {
                                 servicoEditar.setValor(novoValorServico);
                             }
                             break;
 
-                        case 10: //Edição da data de recebimento
+                        case 9: //Edição da data de recebimento
                             Date novaDataRecebimento = getDateInput(
                             "Nova data de recebimento (dd/MM/yyyy): ", sdf);
                             if (novaDataRecebimento != null) {
@@ -436,7 +428,7 @@ public class Servico {
                             }
                             break;                            
 
-                        case 11: //Edição da data de entrega
+                        case 10: //Edição da data de entrega
                             Date novaDataEntrega = getDateInput(
                             "Nova data de entrega (dd/MM/yyyy):", sdf);
                             if (novaDataEntrega != null) {
@@ -444,7 +436,7 @@ public class Servico {
                             }
                             break;          
                            
-                        case 12:
+                        case 11:
                             JOptionPane.showMessageDialog(null, "Edição concluída.");
                             edicaoConcluida = true;
                             break;
@@ -480,7 +472,7 @@ public class Servico {
                 JOptionPane.showMessageDialog(null, "ID: " + servico.getIdServico() +
                         "\nID do Equipamento: " + servico.getEquipamento() +
                         "\nCliente: " + servico.getCliente() +
-                        "\nID da Garantia: " + servico.getIdGarantia() +
+                     //   "\nID da Garantia: " + servico.getIdGarantia() +
                         "\nItens Adicionais: " + servico.getItensAdicionais() +
                         "\nMotivo: " + servico.getMotivo() +
                         "\nPrimeiro Diagnóstico: " + servico.getPrimeiroDiagnostico() +
@@ -498,8 +490,8 @@ public class Servico {
     public String toString() { //formatar, organizar o método Listar.
         return "Servico{" +
                 "idServico=" + idServico +
-                ", idEquipamento=" + equipamento.getIdEquipamento +
-                ", cliente=" + cliente.getNome +
+                ", idEquipamento=" + equipamento.getIdEquipamento() +
+                ", cliente=" + cliente.getNome() +
                 '}';
     }
 }

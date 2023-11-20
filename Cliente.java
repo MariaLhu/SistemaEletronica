@@ -174,7 +174,7 @@ public class Cliente {
             }
             }if (encontrado) {
                                
-                String[] opcoes = {"Editar ID do Cliente", "Editar Tipo", "Editar Nome", "Editar Documento", "Editar Endereço", "Editar Celular", "Sair"};
+                String[] opcoes = {"Editar Tipo", "Editar Nome", "Editar Documento", "Editar Endereço", "Editar Celular", "Sair"};
                 
                 int opcao = JOptionPane.showOptionDialog(
                     null,
