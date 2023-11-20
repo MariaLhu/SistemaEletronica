@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Garantia {
+    //Atributos da Classe Garantia.
     private static int idAutomatico = 1;
     private int idGarantia;
     private Date dataInicial;
     private Date dataFinal;
     private Servico servico;
+
+//O contrutor da Classe, que inicializa uma garantia com os parâmetros fornecidos. 
 
     public Garantia(int idGarantia, Date dataInicial, Date dataFinal, Servico servico) {
         this.idGarantia = idAutomatico++;
@@ -17,6 +20,7 @@ public class Garantia {
         this.dataFinal = dataFinal;
         this.servico = servico;
     }
+//Encapsulamento, utilizados para acessar e modificar os atributos que estão privados.    
 
     public int getIdGarantia() {
         return idGarantia;
@@ -49,7 +53,7 @@ public class Garantia {
     public void setServico(Servico servico) {
         this.servico = servico;
     }
-
+//Método para obter uma data do usuário usando um prompt(Indicador que está pronto para aceitar a entrada do usuário) e um formato de data específico. Ele usa um loop para garantir que a entrada seja válida.
     public static Date getDateInput(String prompt, SimpleDateFormat sdf) {
         Date value = null;
         boolean validInput = false;
@@ -86,7 +90,7 @@ public class Garantia {
         }
         return value;
     }
-
+//Permite cadastrar uma nova garantia. Solicita informações com ID da garantia, datas iniciais e finais, e associa a um serviço existente a essa garantia.
     public static void cadastrarGarantia(ArrayList<Garantia> listaGarantias, ArrayList<Servico> listaServicos) {
 
         //ID da garantia:
@@ -138,7 +142,7 @@ public class Garantia {
         JOptionPane.showMessageDialog(null, "Garantia cadastrada com sucesso!");
 
     }
-
+//Permite editar uma garantia existente. Oferece opções para editar o ID da garantia, trocar o serviço associado, e editar as datas inicial e final.
     public static void editarGarantia(ArrayList<Garantia> listaGarantias, ArrayList<Servico> listaServicos){
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -225,7 +229,7 @@ public class Garantia {
             }
         }
     }
-
+//Exibe as informações de todas as garantias presentes na lista.
     public static void listarGarantia(ArrayList<Garantia> listaGarantias) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -240,7 +244,7 @@ public class Garantia {
             }
         }
     }
-
+//Remove uma garantia da lista com base no seu ID.
     public static boolean excluirGarantia(int idGarantia, ArrayList<Garantia> listaGarantias) {
         for (Garantia garantia : listaGarantias) {
             if (garantia.getIdGarantia() == idGarantia) {
