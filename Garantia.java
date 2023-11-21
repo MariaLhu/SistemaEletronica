@@ -73,6 +73,7 @@ public class Garantia {
         return value;
     }
 
+    //Método para obter um número inteiro do usuário usando um prompt(Indicador que está pronto para aceitar a entrada do usuário). Ele usa um loop para garantir que a entrada seja válida.
     public static int getIntegerInput(String prompt) {
         int value = -1;
         boolean validInput = false;
