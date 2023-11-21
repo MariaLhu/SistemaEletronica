@@ -250,9 +250,12 @@ public class Garantia {
         for (Garantia garantia : listaGarantias) {
             if (garantia.getIdGarantia() == idGarantia) {
                 listaGarantias.remove(garantia);
+                JOptionPane.showMessageDialog(null, "Garantia removida.");
+
                 return true; // Retorna true se a garantia foi excluída
             }
         }
+        JOptionPane.showMessageDialog(null, "Garantia não encontrada.");
         return false; // Retorna false se a garantia não foi encontrada
     }
 }

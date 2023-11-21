@@ -172,7 +172,7 @@ public class TerminalPrincipal {
                     break;
 
                 case 2:
-                    int idExcluir = Garantia.getIntegerInput("Digite o id do Servico que deseja:");
+                    int idExcluir = Garantia.getIntegerInput("Digite o id da Garantia que deseja:");
                     if (idExcluir == -1) {
                         break;
                     }
