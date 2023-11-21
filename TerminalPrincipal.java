@@ -205,8 +205,8 @@ public class TerminalPrincipal {
                     "Listar Servico", "Voltar"};
             servicoOpcao = JOptionPane.showOptionDialog(
                     null,
-                    "Escolha uma opção de Recibo:",
-                    "Menu Recibo",
+                    "Escolha uma opção de Servico:",
+                    "Menu Servico",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
@@ -232,7 +232,7 @@ public class TerminalPrincipal {
                     break;
 
                 case 3:
-                    Servico.listarServico(listaServicos);
+                    Servico.listarServico(listaServicos, listaEquipamentos);
                     break;
 
                 case 4:

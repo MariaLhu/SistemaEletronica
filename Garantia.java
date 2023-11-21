@@ -14,7 +14,7 @@ public class Garantia {
 
 //O contrutor da Classe, que inicializa uma garantia com os parâmetros fornecidos. 
 
-    public Garantia(int idGarantia, Date dataInicial, Date dataFinal, Servico servico) {
+    public Garantia(Date dataInicial, Date dataFinal, Servico servico) {
         this.idGarantia = idAutomatico++;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
@@ -46,8 +46,8 @@ public class Garantia {
         this.dataFinal = dataFinal;
     }
 
-    public Servico getServico() {
-        return servico;
+    public int getServico() {
+        return servico.getIdServico();
     }
 
     public void setServico(Servico servico) {
@@ -135,7 +135,7 @@ public class Garantia {
 
          
         
-        Garantia garantiaCadastrar = new Garantia(idGarantia, dataInicial, dataFinal, servicoEncontrado);
+        Garantia garantiaCadastrar = new Garantia(dataInicial, dataFinal, servicoEncontrado);
 
         // Adicione a nova garantia a lista.
         listaGarantias.add(garantiaCadastrar);
@@ -238,7 +238,7 @@ public class Garantia {
         } else {
             for (Garantia garantia : listaGarantias) {
                 JOptionPane.showMessageDialog(null, "ID: " + garantia.getIdGarantia() +
-                        "\nServiço: " + garantia.getServico().toString() +
+                        "\nServiço: " + garantia.getServico() +
                         "\nData Inicial: " + sdf.format(garantia.getDataInicial()) +
                         "\nData Final: " + sdf.format(garantia.getDataFinal()));
             }

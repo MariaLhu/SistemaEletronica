@@ -366,8 +366,8 @@ public class Servico {
         if (listaServico.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nenhum serviço cadastrado.");
         } else {
-            listarServico(listaServico);
-            int idEditar = Integer.parseInt(JOptionPane.showInputDialog("Qual o ID do serviço que deseja editar?"));
+            listarServico(listaServico, listaEquipamentos);
+            int idEditar = getIntegerInput("Qual o ID do serviço que deseja editar?");
             if (idEditar == -1) {
                 return;
             }
@@ -384,9 +384,8 @@ public class Servico {
                 while (!edicaoConcluida) {
                     int opcaoEditar;
 
-                    String[] opcoesEditar = {"Editar ID do Serviço", "Editar ID do Equipamento", "Trocar Cliente", "Editar ID da Garantia",
-                            "Editar itens adicionais", "Editar motivo", "Editar primeiro diagnóstico", "Editar serviço realizado", "Editar a data de recebimento",
-                            "Editar a data de entrega", "Editar o prazo", "Editar o valor", "Sair"};
+                    String[] opcoesEditar = {"Editar ID do Equipamento", "Trocar Cliente","Editar itens adicionais", "Editar motivo", "Editar primeiro diagnóstico", "Editar serviço realizado", "Editar o valor",
+                            "Editar a data de entrega", "Editar o prazo", "Editar a data de recebimento", "Sair"};
                     opcaoEditar = JOptionPane.showOptionDialog(
                             null,
                             "Escolha uma opção para edição:",
@@ -400,21 +399,21 @@ public class Servico {
 
                     switch (opcaoEditar) {
 
-                        case 0:// Edição do ID do serviço
-                            int novoIdServico = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Serviço:"));
+                       /* case 0:// Edição do ID do serviço
+                            int novoIdServico = getIntegerInput("Digite o novo ID do Serviço:");
                             if (novoIdServico != -1) {
                                 servicoEditar.setIdServico(novoIdServico);
                             }
-                            break;
+                            break; */
 
-                        case 1:    //Edição do ID do equipamento
-                            int trocaEquipamento = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Equipamento:"));
+                        case 0:    //Edição do ID do equipamento
+                            int trocaEquipamento = getIntegerInput("Digite o novo ID do Equipamento:");
                             if (trocaEquipamento != -1) {
                                 //Servico.trocarCliente(servicoEditar,listaClientes);
                             }
                             break;
-                        case 2:    //Trocar Cliente
-                            int trocaCliente = Integer.parseInt(JOptionPane.showInputDialog("Digite o novo ID do Cliente:"));
+                        case 1:    //Trocar Cliente
+                            int trocaCliente = getIntegerInput("Digite o novo ID do Cliente:");
                             if (trocaCliente != -1) {
                                 //Servico.trocarCliente(servicoEditar,listaClientes);
                             }
@@ -427,39 +426,54 @@ public class Servico {
                             }
                             break;*/
 
-                        case 3: //Edição itens adicionais
-                            String novoItensAdicionais = JOptionPane.showInputDialog("Edite os itens adicionais:");
+                        case 2: //Edição itens adicionais
+                            String novoItensAdicionais = getStringInput("Edite os itens adicionais:");
+                            if (novoItensAdicionais == null) {
+                                break;
+                            }
                             servicoEditar.setItensAdicionais(novoItensAdicionais);
                             break;
 
-                        case 4://Edição motivo
-                            String novoMotivo = JOptionPane.showInputDialog("Altere os motivos:");
+                        case 3://Edição motivo
+                            String novoMotivo = getStringInput("Altere os motivos:");
+                            if (novoMotivo == null) {
+                                break;
+                            }
                             servicoEditar.setMotivo(novoMotivo);
                             break;
 
-                        case 5://Edição primeiro diagnóstivo
-                            String novoDiagnostico = JOptionPane.showInputDialog("Altere o primeiro diagnóstico:");
+                        case 4://Edição primeiro diagnóstivo
+                            String novoDiagnostico = getStringInput("Altere o primeiro diagnóstico:");
+                            if (novoDiagnostico == null) {
+                                break;
+                            }
                             servicoEditar.setPrimeiroDiagnostico(novoDiagnostico);
                             break;
 
-                        case 6://Edição serviço realizado
-                            String novoServicoRealizado = JOptionPane.showInputDialog("Altere os serviços realizados:");
+                        case 5://Edição serviço realizado
+                            String novoServicoRealizado = getStringInput("Altere os serviços realizados:");
+                            if (novoServicoRealizado == null) {
+                                break;
+                            }
                             servicoEditar.setServicoRealizado(novoServicoRealizado);
                             break;
 
-                        case 7://Edição testes realizados
-                            String novoTesteRealizado = JOptionPane.showInputDialog("Altere os testes realizados:");
+                        case 6://Edição testes realizados
+                            String novoTesteRealizado = getStringInput("Altere os testes realizados:");
+                            if (novoTesteRealizado == null) {
+                                break;
+                            }
                             servicoEditar.setTestesRealizados(novoTesteRealizado);
                             break;
 
-                        case 8:// Edição do valor
-                            double novoValorServico = Double.parseDouble(JOptionPane.showInputDialog("Novo valor do serviço:"));
+                        case 7:// Edição do valor
+                            double novoValorServico = getDoubleInput("Novo valor do serviço:");
                             if (novoValorServico != -1) {
                                 servicoEditar.setValor(novoValorServico);
                             }
                             break;
 
-                        case 9: //Edição da data de recebimento
+                        case 8: //Edição da data de recebimento
                             Date novaDataRecebimento = getDateInput(
                             "Nova data de recebimento (dd/MM/yyyy): ", sdf);
                             if (novaDataRecebimento != null) {
@@ -467,7 +481,7 @@ public class Servico {
                             }
                             break;                            
 
-                        case 10: //Edição da data de entrega
+                        case 9: //Edição da data de entrega
                             Date novaDataEntrega = getDateInput(
                             "Nova data de entrega (dd/MM/yyyy):", sdf);
                             if (novaDataEntrega != null) {
@@ -475,10 +489,10 @@ public class Servico {
                             }
                             break;          
                            
-                        case 11:
+                        case 10:
                             JOptionPane.showMessageDialog(null, "Edição concluída.");
                             edicaoConcluida = true;
-                            break;
+                            return;
                     }
 
                     JOptionPane.showMessageDialog(null, "Serviço editado!");
@@ -502,11 +516,13 @@ public class Servico {
     }
 
     //Listar Serviço
-    public static void listarServico(ArrayList<Servico> listaServicos ) {
+    public static void listarServico(ArrayList<Servico> listaServicos, ArrayList<Equipamento> listaEquipamentos) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if (listaServicos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nenhum serviço cadastrado.");
-        } else {
+        
+        if (listaEquipamentos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nenhum equipamento cadastrado.");
+        } else if (listaServicos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nenhum serviço cadastrado."); } else {
             for (Servico servico : listaServicos) {
                 JOptionPane.showMessageDialog(null, "ID: " + servico.getIdServico() +
                         "\nID do Equipamento: " + servico.getEquipamento() +
@@ -529,7 +545,7 @@ public class Servico {
     public String toString() { //formatar, organizar o método Listar.
         return "Servico{" +
                 "idServico=" + idServico +
-                ", idEquipamento=" + equipamento.getIdEquipamento() +
+                ", idEquipamento=" + getEquipamento() +
                 ", cliente=" + cliente.getNome() +
                 '}';
     }
